@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CKK.Logic
+namespace CKK.Logic.Models
 {
     public class ShoppingCartItem
     {
@@ -32,6 +32,6 @@ namespace CKK.Logic
         {
             quantity = ShQuantity;
         }
-           
+
     }
 }
