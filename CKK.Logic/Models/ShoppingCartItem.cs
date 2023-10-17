@@ -32,6 +32,9 @@ namespace CKK.Logic.Models
         {
             quantity = ShQuantity;
         }
-
+        public decimal GetTotal()
+        {
+            return quantity * PPrice;
+        }
     }
 }
