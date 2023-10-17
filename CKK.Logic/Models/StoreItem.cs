@@ -2,8 +2,8 @@
 {
     public class StoreItem
     {
-        public Product product;
-        public int quantity;
+        private Product product;
+        private int quantity;
 
         public StoreItem(Product StProduct, int StQuantity)
         {
