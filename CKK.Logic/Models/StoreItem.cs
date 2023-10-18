@@ -2,29 +2,29 @@
 {
     public class StoreItem
     {
-        public Product product;
-        public int quantity;
+        private Product product;
+        private int quantity;
 
-        public StoreItem(Product StProduct, int StQuantity)
+        public StoreItem(Product SIProduct, int SIQuantity)
         {
-            product = StProduct;
-            quantity = StQuantity;
+            product = SIProduct;
+            quantity = SIQuantity;
         }
         public Product GetProduct()
         {
             return product;
         }
-        public void SetProduct(Product StProduct)
+        public void SetProduct(Product SIProduct)
         {
-            product = StProduct;
+            product = SIProduct;
         }
         public int GetQuantity()
         {
             return quantity;
         }
-        public void SetQuantity(int StQuantity)
+        public void SetQuantity(int SIQuantity)
         {
-            quantity = StQuantity;
+            quantity = SIQuantity;
         }
     }
 }

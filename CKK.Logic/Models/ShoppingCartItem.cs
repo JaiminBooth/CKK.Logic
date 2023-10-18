@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,8 @@ namespace CKK.Logic.Models
 {
     public class ShoppingCartItem
     {
-        public Product product;
-        public int quantity;
+        private Product product;
+        private int quantity;
 
         public ShoppingCartItem(Product ShProduct, int ShQuantity)
         {
@@ -32,6 +33,9 @@ namespace CKK.Logic.Models
         {
             quantity = ShQuantity;
         }
-
+        public int GetTotal()
+        {
+            return ShQuantity * PProduct;
+        }
     }
 }
