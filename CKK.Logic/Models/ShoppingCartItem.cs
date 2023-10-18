@@ -33,9 +33,9 @@ namespace CKK.Logic.Models
         {
             quantity = ShQuantity;
         }
-        public int GetTotal()
+        public decimal GetTotal()
         {
-            return ShQuantity * PProduct;
+            return quantity * PPrice;
         }
     }
 }
