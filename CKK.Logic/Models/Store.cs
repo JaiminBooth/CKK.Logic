@@ -44,7 +44,7 @@ namespace CKK.Logic.Models
             {
                 product2 = prod;
             }
-            else
+            else if (product3 == null)
             {
                 product3 = prod;
             }
