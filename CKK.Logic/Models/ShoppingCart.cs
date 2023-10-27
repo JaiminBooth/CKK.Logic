@@ -21,6 +21,7 @@ namespace CKK.Logic.Models
         public int GetCustomerId()
         {
             return customer.GetId();
+
         }
         public ShoppingCartItem GetProductById(int id)
         {
@@ -43,32 +44,39 @@ namespace CKK.Logic.Models
         {
             ShoppingCartItem CartItem = new ShoppingCartItem(prod, quantity);
 
-            if (quantity < 0)
+            if (quantity < 1)
             {
                 return null;
             }
-            if (product1 != null)
+            if (product1 != null && product1.GetProduct().GetId() == prod.GetId())
             {
                 product1.SetQuantity(quantity + product1.GetQuantity());
+                return product1;
             }
-            if (product2 != null)
+            if (product2 != null && product2.GetProduct().GetId() == prod.GetId())
             {
                 product2.SetQuantity(quantity + product2.GetQuantity());
+                return product2;
             }
-            if (product3 != null)
+            if (product3 != null && product3.GetProduct().GetId() == prod.GetId())
             {
                 product3.SetQuantity(quantity + product3.GetQuantity());
+                return product3;
             }
             if (product1 == null)
             {
+                product1 = CartItem;
                 return CartItem;
+
             }
             if (product2 == null)
             {
+                product2 = CartItem;
                 return CartItem;
             }
             if (product3 == null)
             {
+                product3 = CartItem;
                 return CartItem;
             }
             return null;
