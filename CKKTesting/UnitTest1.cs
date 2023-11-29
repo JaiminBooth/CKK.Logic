@@ -7,20 +7,33 @@ namespace CKKTesting
     {
 
         [Fact]
-        public void AddProduct()
+        public void AddProductTest()
         {
-            //  ShoppingCart Cart = new ShoppingCart();
+            Customer cust = new Customer();
+            Product prod = new Product();
+            prod.SetId(44);
+            ShoppingCartItem item = new ShoppingCartItem(prod, 1);
+            ShoppingCart customer = new ShoppingCart(cust);
+            var expected = 44;
+            var actual = customer.AddProduct(prod, 1).GetProduct().GetId();
 
-            //  int added = Cart.AddProduct();
-            // Assert.Equal(added, )
+            Assert.Equal(expected, actual);
         }
         [Fact]
-        public void RemoveProduct()
+        public void RemoveProductTest()
         {
+            Customer cust = new Customer();
+            Product prod = new Product();
+            prod.SetId(44);
+            ShoppingCartItem item = new ShoppingCartItem(prod, 1);
+            ShoppingCart customer = new ShoppingCart(cust);
+            var expected = 44;
+            var actual = customer.RemoveProduct(prod, 1).GetProduct().GetId();
 
+            Assert.Equal(expected, actual);
         }
         [Fact]
-        public void GetTotal()
+        public void GetTotalTest()
         {
 
             ShoppingCart cart = new ShoppingCart(new Customer());

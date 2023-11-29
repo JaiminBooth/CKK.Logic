@@ -13,10 +13,16 @@ namespace CKK.Logic.Models
     {
         private int id;
         private string name;
-        private Product product1;
-        private Product product2;
-        private Product product3;
+        List<StoreItem> items;
 
+
+
+
+        public Store()
+        {
+            items = new List<StoreItem>();
+
+        }
         public int GetId()
         {
             return id;
@@ -33,65 +39,55 @@ namespace CKK.Logic.Models
         {
             name = StName;
         }
-        public void AddStoreItem(Product prod)
+        public StoreItem AddStoreItem(Product prod, int quantity)
         {
+            if (quantity <= 0)
+            {
+                return null;
+            }
 
-            if (product1 == null)
+            StoreItem storeItem = FindStoreItemById(prod.GetId());
+
+            if (storeItem != null)
             {
-                product1 = prod;
-            }
-            else if (product2 == null)
-            {
-                product2 = prod;
-            }
-            else if (product3 == null)
-            {
-                product3 = prod;
-            }
-        }
-        public void RemoveStoreItem(int productNum)
-        {
-            if (productNum == 1)
-            {
-                product1 = null;
-            }
-            else if (productNum == 2)
-            {
-                product2 = null;
+                storeItem.SetQuantity(storeItem.GetQuantity() + quantity);
             }
             else
             {
-                product3 = null;
+                items.Add(storeItem);
             }
+
+            return storeItem;
         }
-        public Product GetStoreItem(int productNum)
+        public StoreItem RemoveStoreItem(int id, int quantity)
         {
-            if (productNum == 1)
+            if (quantity <= 0)
             {
-                return product1;
+                return null;
             }
-            else if (productNum == 2)
+
+            StoreItem storeItem = FindStoreItemById(id);
+
+            if (quantity > 0)
             {
-                return product2;
+                storeItem = null;
             }
-            else
-            {
-                return product3;
-            }
+
+            return storeItem;
         }
-        public Product FindStoreItemById(int id)
+        public List<StoreItem> GetStoreItems(int productNum)
         {
-            if (product1 != null & product1.GetId() == id)
+            return items;
+        }
+        public StoreItem FindStoreItemById(int id)
+        {
+            var foundId =
+                from e in items
+                where e.GetProduct().GetId() == id
+                select e;
+            if (foundId.Any())
             {
-                return product1;
-            }
-            else if (product2 != null & product2.GetId() == id)
-            {
-                return product2;
-            }
-            else if (product3 != null & product3.GetId() == id)
-            {
-                return product3;
+                return foundId.FirstOrDefault();
             }
             else
             {
