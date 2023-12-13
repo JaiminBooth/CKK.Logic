@@ -6,13 +6,9 @@ using System.Threading.Tasks;
 
 namespace CKK.Logic
 {
-    public class Customer : Entity
+    public abstract class InventoryItem
     {
-
-        public string address { get; set; }
-
-
-
-
+        public Product product { get; set; }
+        public int quantity { get; set; }
     }
 }

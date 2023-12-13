@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,38 +8,18 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CKK.Logic.Models
+namespace CKK.Logic
 {
-    public class Store
+    public class Store : Entity
     {
-        private int id;
-        private string name;
-        List<StoreItem> items;
+
+        public List<StoreItem> items;
 
 
 
 
-        public Store()
-        {
-            items = new List<StoreItem>();
 
-        }
-        public int GetId()
-        {
-            return id;
-        }
-        public void SetId(int StId)
-        {
-            id = StId;
-        }
-        public string GetName()
-        {
-            return name;
-        }
-        public void SetName(string StName)
-        {
-            name = StName;
-        }
+
         public StoreItem AddStoreItem(Product prod, int quantity)
         {
             if (quantity <= 0)
@@ -46,11 +27,12 @@ namespace CKK.Logic.Models
                 return null;
             }
 
-            StoreItem storeItem = FindStoreItemById(prod.GetId());
+            StoreItem storeItem = FindStoreItemById(prod.id);
 
             if (storeItem != null)
             {
-                storeItem.SetQuantity(storeItem.GetQuantity() + quantity);
+
+                storeItem.quantity = quantity + storeItem.quantity;
             }
             else
             {
@@ -83,7 +65,7 @@ namespace CKK.Logic.Models
         {
             var foundId =
                 from e in items
-                where e.GetProduct().GetId() == id
+                where e.product.id == id
                 select e;
             if (foundId.Any())
             {

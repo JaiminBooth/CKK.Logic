@@ -1,16 +1,17 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CKK.Logic.Models
+namespace CKK.Logic
 {
     public class ShoppingCart
     {
-        private Customer customer;
-        List<ShoppingCartItem> products;
+        public Customer customer { get; set; }
+        public List<ShoppingCartItem> products;
 
         public ShoppingCart()
         {
@@ -22,14 +23,14 @@ namespace CKK.Logic.Models
         }
         public int GetCustomerId()
         {
-            return customer.GetId();
+            return customer.id;
 
         }
         public ShoppingCartItem GetProductById(int id)
         {
             var foundId =
                 from e in products
-                where e.GetProduct().GetId() == id
+                where e.product.id == id
                 select e;
             if (foundId.Any())
             {
@@ -51,11 +52,12 @@ namespace CKK.Logic.Models
                 return null;
             }
 
-            ShoppingCartItem shoppingCartItem = GetProductById(prod.GetId());
+            ShoppingCartItem shoppingCartItem = GetProductById(prod.id);
 
             if (shoppingCartItem != null)
             {
-                shoppingCartItem.SetQuantity(quantity + shoppingCartItem.GetQuantity());
+
+                shoppingCartItem.quantity = quantity + shoppingCartItem.quantity;
                 return shoppingCartItem;
             }
             if (shoppingCartItem == null)
@@ -78,7 +80,7 @@ namespace CKK.Logic.Models
                 return null;
             }
 
-            ShoppingCartItem shoppingCartItem = GetProductById(prod.GetId());
+            ShoppingCartItem shoppingCartItem = GetProductById(prod.id);
 
             if (quantity > 0)
             {
@@ -95,7 +97,7 @@ namespace CKK.Logic.Models
 
             foreach (ShoppingCartItem shoppingCartItem in products)
             {
-                total += shoppingCartItem.GetProduct().GetPrice() * shoppingCartItem.GetQuantity();
+                total += shoppingCartItem.product.price * shoppingCartItem.quantity;
             }
 
             return total;
