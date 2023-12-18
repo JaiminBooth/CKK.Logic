@@ -1,4 +1,4 @@
-﻿
+﻿using CKK.Logic.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,18 +8,16 @@ using System.Threading.Tasks;
 
 namespace CKK.Logic
 {
-    public class ShoppingCart
+    public class ShoppingCart : IShoppingCart
     {
         public Customer customer { get; set; }
         public List<ShoppingCartItem> products;
 
-        public ShoppingCart()
-        {
-            products = new List<ShoppingCartItem>();
-        }
+
         public ShoppingCart(Customer ScCustomer)
         {
             customer = ScCustomer;
+            products = new List<ShoppingCartItem>();
         }
         public int GetCustomerId()
         {
@@ -28,42 +26,47 @@ namespace CKK.Logic
         }
         public ShoppingCartItem GetProductById(int id)
         {
-            var foundId =
-                from e in products
-                where e.product.id == id
-                select e;
-            if (foundId.Any())
+            if (products != null)
             {
-                return foundId.FirstOrDefault();
+                var foundId =
+                    from e in products
+                    where e.product.id == id
+                    select e;
+                if (foundId.Any())
+                {
+                    return foundId.FirstOrDefault();
+                }
             }
-            else
-            {
-                return null;
-            }
+
+
+            return null;
+
 
         }
 
         public ShoppingCartItem AddProduct(Product prod, int quantity)
         {
-            ShoppingCartItem cartItem = new ShoppingCartItem(prod, quantity);
+            ShoppingCartItem cartItem = GetProductById(prod.id);
 
             if (quantity < 1)
             {
                 return null;
             }
 
-            ShoppingCartItem shoppingCartItem = GetProductById(prod.id);
+            //ShoppingCartItem shoppingCartItem = GetProductById(prod.id);
 
-            if (shoppingCartItem != null)
+            if (cartItem != null)
             {
 
-                shoppingCartItem.quantity = quantity + shoppingCartItem.quantity;
-                return shoppingCartItem;
-            }
-            if (shoppingCartItem == null)
-            {
-                shoppingCartItem = cartItem;
+                cartItem.quantity = quantity + cartItem.quantity;
                 return cartItem;
+            }
+            if (cartItem == null)
+            {
+                ShoppingCartItem shoppingCartItem = new ShoppingCartItem(prod, quantity);
+                products.Add(shoppingCartItem);
+                // shoppingCartItem = cartItem;
+                return shoppingCartItem;
             }
 
 
@@ -75,19 +78,20 @@ namespace CKK.Logic
         }
         public ShoppingCartItem RemoveProduct(Product prod, int quantity)
         {
+            ShoppingCartItem cartItem = GetProductById(prod.id);
             if (quantity < 1)
             {
                 return null;
             }
 
-            ShoppingCartItem shoppingCartItem = GetProductById(prod.id);
+
 
             if (quantity > 0)
             {
-                shoppingCartItem = null;
+                cartItem.quantity = quantity - cartItem.quantity;
             }
 
-            return shoppingCartItem;
+            return cartItem;
         }
 
         public decimal GetTotal()

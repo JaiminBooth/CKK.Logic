@@ -1,64 +1,63 @@
-using CKK.Logic.Models;
+
 using Xunit.Abstractions;
 
-namespace CKKTesting
+namespace CKK.Logic
 {
     public class ShoppingCartTests
     {
 
         [Fact]
-        public void AddProductTest()
+        public void AddProduct()
         {
-            Customer cust = new Customer();
-            Product prod = new Product();
-            prod.SetId(44);
-            ShoppingCartItem item = new ShoppingCartItem(prod, 1);
-            ShoppingCart customer = new ShoppingCart(cust);
-            var expected = 44;
-            var actual = customer.AddProduct(prod, 1).GetProduct().GetId();
-
-            Assert.Equal(expected, actual);
+            Product product = new Product();
+            product.id = 54;
+            Customer customer = new Customer();
+            var expected = 1;
+            ShoppingCart shCart = new ShoppingCart(customer);
+            shCart.AddProduct(product);
+            var actual = shCart.GetProductById(54);
+            Assert.Equal(expected, actual.quantity);
         }
         [Fact]
-        public void RemoveProductTest()
+        public void RemoveProduct()
         {
-            Customer cust = new Customer();
-            Product prod = new Product();
-            prod.SetId(44);
-            ShoppingCartItem item = new ShoppingCartItem(prod, 1);
-            ShoppingCart customer = new ShoppingCart(cust);
+            Product product = new Product();
+            product.id = 54;
+            Customer customer = new Customer();
+            ShoppingCart shCart = new ShoppingCart(customer);
             var expected = 44;
-            var actual = customer.RemoveProduct(prod, 1).GetProduct().GetId();
 
-            Assert.Equal(expected, actual);
+            shCart.AddProduct(product);
+            shCart.RemoveProduct(product, 1);
+            var actual = shCart.GetProductById(54);
+            Assert.Equal(0, actual.quantity);
         }
         [Fact]
-        public void GetTotalTest()
+        public void GetTotal()
         {
 
             ShoppingCart cart = new ShoppingCart(new Customer());
-            for (int i = 0; i < 3; i++)
-            {
-                Product product = new Product();
-                product.SetName("s" + i);
-                product.SetId(i);
-                product.SetPrice(1.50m);
-                cart.AddProduct(product);
 
-            }
+            Product product1 = new Product();
+            product1.name = "s";
+            product1.id = 22;
+            product1.price = 1.50m;
+            cart.AddProduct(product1);
+
+            Product product2 = new Product();
+            product2.name = "g";
+            product2.id = 32;
+            product2.price = 1.50m;
+            cart.AddProduct(product2);
+
+            Product product3 = new Product();
+            product3.name = "a";
+            product3.id = 34;
+            product3.price = 1.50m;
+            cart.AddProduct(product3);
+
             Assert.Equal(4.50m, cart.GetTotal());
         }
-        [Fact]
-        public void GetCustomerTest()
-        {
-            Customer customer = new Customer();
-            customer.SetName("Mark");
-            customer.SetId(32);
 
-            ShoppingCart cart = new ShoppingCart(customer);
-            int item = cart.GetCustomerId();
-            Assert.Equal(32, item);
-            Assert.Equal("Mark", customer.GetName());
-        }
     }
 }

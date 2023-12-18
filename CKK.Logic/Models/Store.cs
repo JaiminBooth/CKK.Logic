@@ -1,4 +1,4 @@
-﻿
+﻿using CKK.Logic.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CKK.Logic
 {
-    public class Store : Entity
+    public class Store : Entity, IStore
     {
 
         public List<StoreItem> items;
