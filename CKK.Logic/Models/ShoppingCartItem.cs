@@ -1,11 +1,12 @@
 ﻿using System;
+using CKK.Logic.Interfaces;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CKK.Logic
+namespace CKK.Logic.Models
 {
     public class ShoppingCartItem : InventoryItem
     {

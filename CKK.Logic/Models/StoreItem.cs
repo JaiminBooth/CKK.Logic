@@ -1,4 +1,6 @@
-﻿namespace CKK.Logic
+﻿using CKK.Logic.Interfaces;
+
+namespace CKK.Logic.Models
 {
     public class StoreItem : InventoryItem
     {

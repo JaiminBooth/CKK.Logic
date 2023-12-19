@@ -1,6 +1,6 @@
 
 using Xunit.Abstractions;
-
+using CKK.Logic.Models;
 namespace CKK.Logic
 {
     public class ShoppingCartTests

@@ -8,7 +8,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CKK.Logic
+namespace CKK.Logic.Models
 {
     public class Store : Entity, IStore
     {
