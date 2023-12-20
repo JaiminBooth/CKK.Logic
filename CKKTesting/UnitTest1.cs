@@ -16,7 +16,7 @@ namespace CKK.Logic
             ShoppingCart shCart = new ShoppingCart(customer);
             shCart.AddProduct(product);
             var actual = shCart.GetProductById(54);
-            Assert.Equal(expected, actual.quantity);
+            Assert.Equal(expected, actual.Quantity);
         }
         [Fact]
         public void RemoveProduct()
@@ -30,7 +30,7 @@ namespace CKK.Logic
             shCart.AddProduct(product);
             shCart.RemoveProduct(product, 1);
             var actual = shCart.GetProductById(54);
-            Assert.Equal(0, actual.quantity);
+            Assert.Equal(0, actual.Quantity);
         }
         [Fact]
         public void GetTotal()

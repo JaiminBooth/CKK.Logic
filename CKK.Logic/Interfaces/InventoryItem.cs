@@ -4,12 +4,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CKK.Logic.Exceptions;
 
 namespace CKK.Logic.Interfaces
 {
     public abstract class InventoryItem
     {
-        public Product product { get; set; }
-        public int quantity { get; set; }
+        private Product product;
+        private int quantity;
+        public Product Product
+        {
+            get
+            {
+                return product;
+            }
+            set
+            {
+                Product = value;
+            }
+        }
+        public int Quantity
+        {
+            get
+            {
+                return quantity;
+            }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new InventoryItemStockTooLowException();
+                }
+                Quantity = value;
+            }
+        }
     }
 }

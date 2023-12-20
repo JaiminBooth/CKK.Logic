@@ -1,4 +1,5 @@
-﻿using CKK.Logic.Interfaces;
+﻿using CKK.Logic.Exceptions;
+using CKK.Logic.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace CKK.Logic.Models
         {
             if (quantity <= 0)
             {
-                return null;
+                throw new InventoryItemStockTooLowException();
             }
 
             StoreItem storeItem = FindStoreItemById(prod.id);
@@ -32,7 +33,7 @@ namespace CKK.Logic.Models
             if (storeItem != null)
             {
 
-                storeItem.quantity = quantity + storeItem.quantity;
+                storeItem.Quantity = quantity + storeItem.Quantity;
             }
             else
             {
@@ -45,10 +46,20 @@ namespace CKK.Logic.Models
         {
             if (quantity <= 0)
             {
-                return null;
+                throw new ArgumentOutOfRangeException();
             }
 
             StoreItem storeItem = FindStoreItemById(id);
+
+            if (items.Contains(storeItem))
+            {
+                return null;
+            }
+            else
+            {
+                throw new ProductDoesNotExistException();
+            }
+
 
             if (quantity > 0)
             {
@@ -63,9 +74,13 @@ namespace CKK.Logic.Models
         }
         public StoreItem FindStoreItemById(int id)
         {
+            if (id < 0)
+            {
+                throw new InvalidIdException();
+            }
             var foundId =
                 from e in items
-                where e.product.id == id
+                where e.Product.id == id
                 select e;
             if (foundId.Any())
             {

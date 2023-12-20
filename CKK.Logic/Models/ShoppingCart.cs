@@ -1,4 +1,5 @@
-﻿using CKK.Logic.Interfaces;
+﻿using CKK.Logic.Exceptions;
+using CKK.Logic.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,11 +27,15 @@ namespace CKK.Logic.Models
         }
         public ShoppingCartItem GetProductById(int id)
         {
+            if (id < 0)
+            {
+                throw new InvalidIdException();
+            }
             if (products != null)
             {
                 var foundId =
                     from e in products
-                    where e.product.id == id
+                    where e.Product.id == id
                     select e;
                 if (foundId.Any())
                 {
@@ -48,24 +53,24 @@ namespace CKK.Logic.Models
         {
             ShoppingCartItem cartItem = GetProductById(prod.id);
 
-            if (quantity < 1)
+            if (quantity <= 0)
             {
-                return null;
+                throw new InventoryItemStockTooLowException();
             }
 
-            //ShoppingCartItem shoppingCartItem = GetProductById(prod.id);
+
 
             if (cartItem != null)
             {
 
-                cartItem.quantity = quantity + cartItem.quantity;
+                cartItem.Quantity = quantity + cartItem.Quantity;
                 return cartItem;
             }
             if (cartItem == null)
             {
                 ShoppingCartItem shoppingCartItem = new ShoppingCartItem(prod, quantity);
                 products.Add(shoppingCartItem);
-                // shoppingCartItem = cartItem;
+
                 return shoppingCartItem;
             }
 
@@ -79,16 +84,23 @@ namespace CKK.Logic.Models
         public ShoppingCartItem RemoveProduct(Product prod, int quantity)
         {
             ShoppingCartItem cartItem = GetProductById(prod.id);
-            if (quantity < 1)
+            if (quantity < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            if (products.Contains(cartItem))
             {
                 return null;
             }
-
-
+            else
+            {
+                throw new ProductDoesNotExistException();
+            }
 
             if (quantity > 0)
             {
-                cartItem.quantity = quantity - cartItem.quantity;
+                cartItem.Quantity = quantity - cartItem.Quantity;
             }
 
             return cartItem;
@@ -101,7 +113,7 @@ namespace CKK.Logic.Models
 
             foreach (ShoppingCartItem shoppingCartItem in products)
             {
-                total += shoppingCartItem.product.price * shoppingCartItem.quantity;
+                total += shoppingCartItem.Product.price * shoppingCartItem.Quantity;
             }
 
             return total;
