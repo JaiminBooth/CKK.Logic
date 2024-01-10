@@ -8,8 +8,8 @@ namespace CKK.Logic.Models
 
         public StoreItem(Product SIProduct, int SIQuantity)
         {
-            product = SIProduct;
-            quantity = SIQuantity;
+            Product = SIProduct;
+            Quantity = SIQuantity;
         }
 
     }

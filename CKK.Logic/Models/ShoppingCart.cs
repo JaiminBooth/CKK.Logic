@@ -89,14 +89,11 @@ namespace CKK.Logic.Models
                 throw new ArgumentOutOfRangeException();
             }
 
-            if (products.Contains(cartItem))
-            {
-                return null;
-            }
-            else
+            if (!products.Contains(cartItem))
             {
                 throw new ProductDoesNotExistException();
             }
+
 
             if (quantity > 0)
             {

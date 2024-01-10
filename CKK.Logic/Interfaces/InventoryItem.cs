@@ -20,7 +20,7 @@ namespace CKK.Logic.Interfaces
             }
             set
             {
-                Product = value;
+                product = value;
             }
         }
         public int Quantity
@@ -35,7 +35,7 @@ namespace CKK.Logic.Interfaces
                 {
                     throw new InventoryItemStockTooLowException();
                 }
-                Quantity = value;
+                quantity = value;
             }
         }
     }
