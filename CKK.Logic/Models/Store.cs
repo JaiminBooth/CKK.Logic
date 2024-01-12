@@ -28,7 +28,7 @@ namespace CKK.Logic.Models
                 throw new InventoryItemStockTooLowException();
             }
 
-            StoreItem storeItem = FindStoreItemById(prod.id);
+            StoreItem storeItem = FindStoreItemById(prod.Id);
 
             if (storeItem != null)
             {
@@ -80,7 +80,7 @@ namespace CKK.Logic.Models
             }
             var foundId =
                 from e in items
-                where e.Product.id == id
+                where e.Product.Id == id
                 select e;
             if (foundId.Any())
             {

@@ -22,7 +22,7 @@ namespace CKK.Logic.Models
         }
         public int GetCustomerId()
         {
-            return customer.id;
+            return customer.Id;
 
         }
         public ShoppingCartItem GetProductById(int id)
@@ -35,7 +35,7 @@ namespace CKK.Logic.Models
             {
                 var foundId =
                     from e in products
-                    where e.Product.id == id
+                    where e.Product.Id == id
                     select e;
                 if (foundId.Any())
                 {
@@ -51,7 +51,7 @@ namespace CKK.Logic.Models
 
         public ShoppingCartItem AddProduct(Product prod, int quantity)
         {
-            ShoppingCartItem cartItem = GetProductById(prod.id);
+            ShoppingCartItem cartItem = GetProductById(prod.Id);
 
             if (quantity <= 0)
             {
@@ -83,7 +83,7 @@ namespace CKK.Logic.Models
         }
         public ShoppingCartItem RemoveProduct(Product prod, int quantity)
         {
-            ShoppingCartItem cartItem = GetProductById(prod.id);
+            ShoppingCartItem cartItem = GetProductById(prod.Id);
             if (quantity < 0)
             {
                 throw new ArgumentOutOfRangeException();
@@ -110,7 +110,7 @@ namespace CKK.Logic.Models
 
             foreach (ShoppingCartItem shoppingCartItem in products)
             {
-                total += shoppingCartItem.Product.price * shoppingCartItem.Quantity;
+                total += shoppingCartItem.Product.Price * shoppingCartItem.Quantity;
             }
 
             return total;

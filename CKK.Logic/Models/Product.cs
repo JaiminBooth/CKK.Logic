@@ -9,12 +9,12 @@ namespace CKK.Logic.Models
 {
     public class Product : Entity
     {
-        private decimal Price;
-        public decimal price
+        private decimal price;
+        public decimal Price
         {
             get
             {
-                return Price;
+                return price;
             }
             set
             {
@@ -22,7 +22,7 @@ namespace CKK.Logic.Models
                 {
                     throw new ArgumentOutOfRangeException("value");
                 }
-                Price = value;
+                price = value;
             }
         }
 
